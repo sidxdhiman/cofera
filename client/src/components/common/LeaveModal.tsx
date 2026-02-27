@@ -7,9 +7,10 @@ interface LeaveModalProps {
     onLeaveWithoutSaving: () => void
     onSaveAndLogin: () => void
     onSaveAndSignup: () => void
+    onDownload: () => void
 }
 
-const LeaveModal = ({ isOpen, onClose, onLeaveWithoutSaving, onSaveAndLogin, onSaveAndSignup }: LeaveModalProps) => {
+const LeaveModal = ({ isOpen, onClose, onLeaveWithoutSaving, onSaveAndLogin, onSaveAndSignup, onDownload }: LeaveModalProps) => {
     if (!isOpen) return null
 
     return (
@@ -36,6 +37,12 @@ const LeaveModal = ({ isOpen, onClose, onLeaveWithoutSaving, onSaveAndLogin, onS
                         className="w-full rounded-lg border border-primary px-4 py-3 text-center font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
                     >
                         Log In and Save
+                    </button>
+                    <button
+                        onClick={onDownload}
+                        className="w-full rounded-lg border border-border px-4 py-3 text-center font-semibold text-text transition-colors hover:bg-surfaceHover"
+                    >
+                        Download ZIP
                     </button>
                     <button
                         onClick={onLeaveWithoutSaving}

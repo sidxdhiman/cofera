@@ -33,7 +33,7 @@ function EditorTopBar() {
         return () => document.removeEventListener("mousedown", handleClickOutside)
     }, [])
 
-    const handleMenuClick = (menuItem: string, action: string) => {
+    const handleMenuClick = (_menuItem: string, action: string) => {
         setActiveMenu(null)
         if (action === "Save All") {
             socket.emit("SYNC_WORKSPACE_TO_DISK", {
@@ -47,7 +47,7 @@ function EditorTopBar() {
     }
 
     return (
-        <div className="flex h-9 w-full select-none items-center justify-between border-b border-border bg-[#181818] px-2 text-[13px] text-[#cccccc]">
+        <div className="flex h-9 shrink-0 w-full select-none items-center justify-between border-b border-border bg-[#181818] px-2 text-[13px] text-[#cccccc]">
             <div className="flex items-center gap-2" ref={menuRef}>
                 <div className="mr-2 flex items-center justify-center pt-[2px] text-[#007acc]">
                     <VscVscode size={18} />
@@ -79,12 +79,6 @@ function EditorTopBar() {
             </div>
             <div className="flex-1 text-center text-[12px] opacity-80">
                 {activeFile ? `${activeFile.name} - Cofera Pod` : "Cofera - Antigravity"}
-            </div>
-            <div className="flex items-center gap-4 text-[12px] pr-2">
-                <button className="flex items-center gap-1 rounded bg-[#007acc] px-2 py-[2px] text-white transition-opacity hover:opacity-90">
-                    <span className="w-4 h-4 rounded-full bg-white text-[#007acc] inline-flex items-center justify-center font-bold text-[10px]">1</span>
-                    Restart to Update →
-                </button>
             </div>
         </div>
     )

@@ -6,7 +6,7 @@ function Users() {
     const { users } = useAppContext()
 
     return (
-        <div className="flex min-h-[200px] flex-grow justify-center overflow-y-auto py-2">
+        <div className="flex min-h-0 flex-grow justify-center overflow-y-auto py-2">
             <div className="flex h-full w-full flex-wrap items-start gap-x-2 gap-y-6">
                 {users.map((user) => {
                     return <User key={user.socketId} user={user} />
@@ -30,11 +30,10 @@ const User = ({ user }: { user: RemoteUser }) => {
                 {username}
             </p>
             <div
-                className={`absolute right-5 top-0 h-3 w-3 rounded-full ${
-                    status === USER_CONNECTION_STATUS.ONLINE
+                className={`absolute right-5 top-0 h-3 w-3 rounded-full ${status === USER_CONNECTION_STATUS.ONLINE
                         ? "bg-green-500"
                         : "bg-danger"
-                }`}
+                    }`}
             ></div>
         </div>
     )

@@ -1,16 +1,15 @@
-import  { useState } from "react"
+import { useState } from "react"
 import FileStructureView from "@/components/files/FileStructureView"
 import { useFileSystem } from "@/context/FileContext"
 import useResponsive from "@/hooks/useResponsive"
 import { FileSystemItem } from "@/types/file"
 import cn from "classnames"
-import { BiArchiveIn } from "react-icons/bi"
 import { TbFileUpload } from "react-icons/tb"
 import { v4 as uuidV4 } from "uuid"
 import { toast } from "react-hot-toast"
 
 function FilesView() {
-    const { downloadFilesAndFolders, updateDirectory } = useFileSystem()
+    const { updateDirectory } = useFileSystem()
     const { viewHeight } = useResponsive()
     const { minHeightReached } = useResponsive()
     const [isLoading, setIsLoading] = useState(false)
@@ -192,12 +191,6 @@ function FilesView() {
                 >
                     <TbFileUpload className="mr-2" size={24} />
                     {isLoading ? "Loading..." : "Open File/Folder"}
-                </button>
-                <button
-                    className="flex w-full justify-start rounded-lg p-2 transition-all hover:bg-surfaceHover"
-                    onClick={downloadFilesAndFolders}
-                >
-                    <BiArchiveIn className="mr-2" size={22} /> Download Code
                 </button>
             </div>
         </div>

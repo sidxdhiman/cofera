@@ -6,7 +6,6 @@ import { ChangeEvent, FormEvent, useEffect, useRef } from "react"
 import { toast } from "react-hot-toast"
 import { useLocation, useNavigate } from "react-router-dom"
 import { v4 as uuidv4 } from "uuid"
-import logo from "@/assets/logo.svg"
 import AuthModal from "@/components/common/AuthModal"
 import { useState } from "react"
 
@@ -101,7 +100,9 @@ const FormComponent = () => {
 
     return (
         <div className="flex w-full max-w-[450px] flex-col items-center justify-center gap-6 rounded-2xl bg-surface p-8 shadow-google dark:shadow-none sm:w-[450px]">
-            <img src={logo} alt="Logo" className="w-full" />
+            <div className="w-full text-center">
+                <h1 className="text-5xl font-black text-primary font-satoshi tracking-tight">Cofera</h1>
+            </div>
             <form onSubmit={joinRoom} className="flex w-full flex-col gap-4">
                 <input
                     type="text"

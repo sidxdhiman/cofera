@@ -1,5 +1,6 @@
 import Users from "@/components/common/Users"
 import { useAppContext } from "@/context/AppContext"
+import { useFileSystem } from "@/context/FileContext"
 import { useSocket } from "@/context/SocketContext"
 import useResponsive from "@/hooks/useResponsive"
 import { USER_STATUS } from "@/types/user"
@@ -9,6 +10,7 @@ import { IoShareOutline } from "react-icons/io5"
 import { LuCopy } from "react-icons/lu"
 import { useNavigate } from "react-router-dom"
 import LeaveModal from "@/components/common/LeaveModal"
+import ShareModal from "@/components/common/ShareModal"
 import { useState } from "react"
 
 function UsersView() {
@@ -16,7 +18,9 @@ function UsersView() {
     const { viewHeight } = useResponsive()
     const { setStatus } = useAppContext()
     const { socket } = useSocket()
+    const { downloadFilesAndFolders } = useFileSystem()
     const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false)
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false)
 
     const copyURL = async () => {
         const url = window.location.href
@@ -29,14 +33,8 @@ function UsersView() {
         }
     }
 
-    const shareURL = async () => {
-        const url = window.location.href
-        try {
-            await navigator.share({ url })
-        } catch (error) {
-            toast.error("Unable to share URL")
-            console.log(error)
-        }
+    const shareURL = () => {
+        setIsShareModalOpen(true)
     }
 
     const handleLeave = () => {
@@ -65,11 +63,11 @@ function UsersView() {
             <h1 className="view-title">Users</h1>
             {/* List of connected users */}
             <Users />
-            <div className="flex flex-col items-center gap-4 pt-4">
+            <div className="flex flex-col items-center gap-4 pt-4 shrink-0 mt-auto">
                 <div className="flex w-full gap-4">
                     {/* Share URL button */}
                     <button
-                        className="flex flex-grow items-center justify-center rounded-lg bg-white p-3 text-white"
+                        className="flex flex-grow items-center justify-center rounded-lg bg-white p-3 text-black hover:opacity-80 transition-opacity"
                         onClick={shareURL}
                         title="Share Link"
                     >
@@ -77,7 +75,7 @@ function UsersView() {
                     </button>
                     {/* Copy URL button */}
                     <button
-                        className="flex flex-grow items-center justify-center rounded-lg bg-white p-3 text-white"
+                        className="flex flex-grow items-center justify-center rounded-lg bg-white p-3 text-black hover:opacity-80 transition-opacity"
                         onClick={copyURL}
                         title="Copy Link"
                     >
@@ -85,7 +83,7 @@ function UsersView() {
                     </button>
                     {/* Leave pod button */}
                     <button
-                        className="flex flex-grow items-center justify-center rounded-lg bg-primary p-3 text-white"
+                        className="flex flex-grow items-center justify-center rounded-lg bg-primary p-3 text-white hover:bg-primaryHover transition-colors"
                         onClick={handleLeave}
                         title="Leave pod"
                     >
@@ -99,6 +97,11 @@ function UsersView() {
                 onLeaveWithoutSaving={leaveWithoutSaving}
                 onSaveAndLogin={saveAndLogin}
                 onSaveAndSignup={saveAndSignup}
+                onDownload={downloadFilesAndFolders}
+            />
+            <ShareModal
+                isOpen={isShareModalOpen}
+                onClose={() => setIsShareModalOpen(false)}
             />
         </div>
     )

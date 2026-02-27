@@ -10,15 +10,15 @@ function useResponsive() {
     useEffect(() => {
         if (height < 500 && isMobile) {
             setMinHeightReached(true)
-            setViewHeight(height)
+            setViewHeight(height - 36) // Subtract 36px EditorTopBar
         } else if (isMobile) {
             setMinHeightReached(false)
-            setViewHeight(height - 50)
+            setViewHeight(height - 36 - 50) // Subtract 36px EditorTopBar + 50px Bottom Nav
         } else {
             setMinHeightReached(false)
-            setViewHeight(height)
+            setViewHeight(height - 36) // Subtract 36px EditorTopBar
         }
-    }, [height, isMobile, viewHeight])
+    }, [height, isMobile])
 
     return { viewHeight, minHeightReached }
 }

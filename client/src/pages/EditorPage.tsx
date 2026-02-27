@@ -11,6 +11,8 @@ import { USER_STATUS, User } from "@/types/user"
 import { useEffect } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 
+import EditorTopBar from "@/components/workspace/EditorTopBar"
+
 function EditorPage() {
     // Listen user online/offline status
     useUserActivity()
@@ -48,11 +50,14 @@ function EditorPage() {
     }
 
     return (
-        <div className="relative h-screen w-full overflow-hidden">
-            <SplitterComponent>
-                <Sidebar />
-                <WorkSpace />
-            </SplitterComponent>
+        <div className="flex flex-col h-screen w-full overflow-hidden">
+            <EditorTopBar />
+            <div className="flex-1 overflow-hidden w-full">
+                <SplitterComponent>
+                    <Sidebar />
+                    <WorkSpace />
+                </SplitterComponent>
+            </div>
         </div>
     )
 }

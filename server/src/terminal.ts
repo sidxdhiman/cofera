@@ -21,6 +21,7 @@ export function setupTerminal(socket: Socket) {
     } else {
         shell = "bash"
     }
+    const shellArgs = os.platform() === "win32" ? [] : ["--noprofile", "--norc"]
 
     let ptyProcess: pty.IPty | null = null
     let currentRoomId = "default"
@@ -39,12 +40,15 @@ export function setupTerminal(socket: Socket) {
             ptyProcess.kill()
         }
 
-        ptyProcess = pty.spawn(shell, [], {
+        ptyProcess = pty.spawn(shell, shellArgs, {
             name: "xterm-color",
             cols: dims?.cols || 80,
             rows: dims?.rows || 30,
             cwd: workspacePath,
-            env: process.env as Record<string, string>,
+            env: {
+                ...process.env,
+                PS1: `\\[\\e[1;32m\\]pod@${currentRoomId}\\[\\e[0m\\]:\\[\\e[1;34m\\]\\w\\[\\e[0m\\]\\$ `
+            } as Record<string, string>,
         })
 
         ptyProcess.onData((data: string) => {
@@ -63,12 +67,15 @@ export function setupTerminal(socket: Socket) {
             socket.emit("TERMINAL_RESPONSE", "\r\nRestarting terminal...\r\n")
 
             const workspacePath = path.join(__dirname, "../../data/workspaces", currentRoomId)
-            ptyProcess = pty.spawn(shell, [], {
+            ptyProcess = pty.spawn(shell, shellArgs, {
                 name: "xterm-color",
                 cols: 80,
                 rows: 30,
                 cwd: workspacePath,
-                env: process.env as Record<string, string>,
+                env: {
+                    ...process.env,
+                    PS1: `\\[\\e[1;32m\\]pod@${currentRoomId}\\[\\e[0m\\]:\\[\\e[1;34m\\]\\w\\[\\e[0m\\]\\$ `
+                } as Record<string, string>,
             })
 
             ptyProcess.onData((output: string) => {

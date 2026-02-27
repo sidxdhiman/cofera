@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-hot-toast"
 import { v4 as uuidv4 } from "uuid"
-import logo from "@/assets/logo.svg"
 import { useAppContext } from "@/context/AppContext"
 import { MdDelete } from "react-icons/md"
 
@@ -177,7 +176,9 @@ function LaunchPadPage() {
     return (
         <div className="flex min-h-screen flex-col items-center p-8">
             <div className="w-full max-w-4xl flex items-center justify-between mb-12">
-                <img src={logo} alt="Logo" className="w-[150px]" />
+                <div className="flex items-center">
+                    <h1 className="text-4xl font-black text-primary font-satoshi tracking-tight">Cofera</h1>
+                </div>
                 <div className="flex items-center gap-4">
                     <span className="text-text font-medium text-lg">
                         Welcome, {localStorage.getItem("username")}

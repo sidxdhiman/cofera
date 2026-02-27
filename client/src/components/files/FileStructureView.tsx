@@ -19,14 +19,11 @@ import {
     RiFolderUploadLine,
 } from "react-icons/ri"
 import RenameView from "./RenameView"
-import useResponsive from "@/hooks/useResponsive"
-
 function FileStructureView() {
     const { fileStructure, createFile, createDirectory, collapseDirectories } =
         useFileSystem()
     const explorerRef = useRef<HTMLDivElement | null>(null)
     const [selectedDirId, setSelectedDirId] = useState<Id | null>(null)
-    const { minHeightReached } = useResponsive()
 
     const handleClickOutside = (e: MouseEvent) => {
         if (
@@ -84,13 +81,7 @@ function FileStructureView() {
                 </div>
             </div>
             <div
-                className={cn(
-                    "min-h-[200px] flex-grow overflow-auto pr-2 sm:min-h-0",
-                    {
-                        "h-[calc(80vh-170px)]": !minHeightReached,
-                        "h-[85vh]": minHeightReached,
-                    },
-                )}
+                className="flex-grow overflow-auto pr-2 min-h-0"
                 ref={explorerRef}
             >
                 {sortedFileStructure.children &&

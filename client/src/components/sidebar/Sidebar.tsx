@@ -1,5 +1,6 @@
 import SidebarButton from "@/components/sidebar/sidebar-views/SidebarButton"
 import { useAppContext } from "@/context/AppContext"
+import { useFileSystem } from "@/context/FileContext"
 import { useSocket } from "@/context/SocketContext"
 import { useViews } from "@/context/ViewContext"
 import useResponsive from "@/hooks/useResponsive"
@@ -37,6 +38,7 @@ function Sidebar() {
     const [authModalConfig, setAuthModalConfig] = useState<{ isOpen: boolean, mode: "login" | "signup" }>({ isOpen: false, mode: "login" })
     const navigate = useNavigate()
     const { setStatus, currentUser } = useAppContext()
+    const { downloadFilesAndFolders } = useFileSystem()
 
     const handleLeave = () => {
         const token = localStorage.getItem("token")
@@ -210,6 +212,7 @@ function Sidebar() {
                 onLeaveWithoutSaving={leaveWithoutSaving}
                 onSaveAndLogin={saveAndLogin}
                 onSaveAndSignup={saveAndSignup}
+                onDownload={downloadFilesAndFolders}
             />
             <AuthModal
                 isOpen={authModalConfig.isOpen}
