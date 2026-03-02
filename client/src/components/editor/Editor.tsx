@@ -169,7 +169,7 @@ function Editor() {
             />
             {showHighlightWarning && (
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 rounded-full bg-surface/90 backdrop-blur border border-border px-4 py-2 text-sm text-text shadow-google dark:shadow-none animate-up-down">
-                    <span>Syntax highlighting is unavailable for this language.</span>
+                    <span>Syntax highlighting is currently unavailable for this language.</span>
                     <button
                         onClick={() => setShowHighlightWarning(false)}
                         className="p-1 rounded-full hover:bg-surfaceHover text-textSecondary hover:text-text transition-colors"
