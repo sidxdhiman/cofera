@@ -194,7 +194,7 @@ function LaunchPadPage() {
 
             <div className="w-full max-w-4xl">
                 <div className="flex items-center justify-between mb-8">
-                    <h1 className="text-3xl font-bold text-text">Your Pods</h1>
+                    <h1 className="text-3xl font-bold text-text">Your Personal Pods</h1>
                     <button
                         onClick={() => setIsCreateModalOpen(true)}
                         className="rounded-lg bg-primary hover:bg-primaryHover hover:shadow-google text-white px-6 py-3 font-medium transition-all"
@@ -257,7 +257,7 @@ function LaunchPadPage() {
                     </div>
                 ) : (
                     <div className="text-center bg-surface border border-border rounded-2xl p-12 shadow-google dark:shadow-none">
-                        <h2 className="text-xl font-semibold text-text mb-2">No Pods Found</h2>
+                        <h2 className="text-xl font-semibold text-text mb-2">Uh Oh... No Pods Found</h2>
                         <p className="text-textSecondary mb-6">You haven't created any pods yet. Generate one to get started!</p>
                         <button
                             onClick={() => setIsCreateModalOpen(true)}
