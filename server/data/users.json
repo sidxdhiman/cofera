@@ -13,5 +13,32 @@
     "id": "1772211201859",
     "username": "lewintel",
     "password": "$2b$10$vU1oCc2Byunu4kAgpbh8fe8wsBgckvN1kxEQTF8oLVToFkf21LZ1K"
+  },
+  {
+    "id": "1773159256483",
+    "username": "vijay@gmail.com",
+    "password": "$2b$10$mtSgHTSkxU6qKF980ik2SOwPFZOCr8FE8MtTcLFExxloXuS29znn."
+  },
+  {
+    "id": "1773160735213",
+    "username": "sidxdhiman",
+    "password": "$2b$10$qoHxb8i3poLOHDQJu8YVfubhAohqFlNy67j73iEnS0TgWZEPFZfEu",
+    "email": "sidharth.dhiman@carehealth.com",
+    "name": "Sidharth Dhiman",
+    "empId": "5458",
+    "manager": "Ajay",
+    "project": "AIzed",
+    "createdAt": "2026-03-10T16:38:55.213Z"
+  },
+  {
+    "id": "1773162897982",
+    "username": "diyasikka22",
+    "password": "$2b$10$zZ5zlgaeauFDDoTTpF6D7ebfIoQ22sAmSB/TrwGS7NAgu99.Tga5.",
+    "email": "diya.sikka@carehealth.com",
+    "name": "Diya Sikka",
+    "empId": "5457",
+    "manager": "Ajay",
+    "project": "AIzed",
+    "createdAt": "2026-03-10T17:14:57.982Z"
   }
 ]

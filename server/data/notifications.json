@@ -1,0 +1,15 @@
+[
+  {
+    "id": "notif_1773162933674",
+    "type": "pod_invite",
+    "status": "accepted",
+    "toUserId": "1773160735213",
+    "fromUserId": "1773162897982",
+    "fromName": "Diya Sikka",
+    "fromEmpId": "5457",
+    "podId": "418d34bc-f212-4ff9-9655-8eba97aed24a",
+    "podName": "Pod by Diya Sikka",
+    "message": "Diya Sikka has shared access to the pod \"Pod by Diya Sikka\"",
+    "createdAt": "2026-03-10T17:15:33.674Z"
+  }
+]

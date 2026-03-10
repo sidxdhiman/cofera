@@ -8,6 +8,7 @@ import { Server } from "socket.io"
 import path from "path"
 import authRoutes from "./routes/auth"
 import podsRoutes from "./routes/pods"
+import notificationsRoutes from "./routes/notifications"
 import { setupTerminal } from "./terminal"
 
 dotenv.config()
@@ -20,6 +21,7 @@ app.use(cors())
 
 app.use("/api/auth", authRoutes)
 app.use("/api/pods", podsRoutes)
+app.use("/api/notifications", notificationsRoutes)
 
 app.use(express.static(path.join(__dirname, "public"))) // Serve static files
 

@@ -15,11 +15,16 @@ import { Tooltip } from 'react-tooltip'
 import { useState } from 'react'
 import { tooltipStyles } from "./tooltipStyles"
 import { IoCloudUploadOutline, IoRocketOutline } from "react-icons/io5"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import LeaveModal from "@/components/common/LeaveModal"
 import AuthModal from "@/components/common/AuthModal"
 import toast from "react-hot-toast"
 import { USER_STATUS } from "@/types/user"
+
+const BACKEND = () =>
+    import.meta.env.MODE === "development"
+        ? window.location.origin
+        : import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
 
 function Sidebar() {
     const {
@@ -37,6 +42,7 @@ function Sidebar() {
     const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false)
     const [authModalConfig, setAuthModalConfig] = useState<{ isOpen: boolean, mode: "login" | "signup" }>({ isOpen: false, mode: "login" })
     const navigate = useNavigate()
+    const { roomId: urlRoomId } = useParams<{ roomId: string }>()
     const { setStatus, currentUser } = useAppContext()
     const { downloadFilesAndFolders } = useFileSystem()
 
@@ -70,25 +76,35 @@ function Sidebar() {
         const token = localStorage.getItem("token")
         if (!token) return
 
+        // Use roomId from URL params as fallback in case AppContext was reset
+        const podId = currentUser.roomId || urlRoomId
+        if (!podId) {
+            // No pod ID available — just navigate without saving
+            socket.disconnect()
+            setStatus(USER_STATUS.DISCONNECTED)
+            navigate("/launchpad", { replace: true })
+            return
+        }
+
         try {
-            const baseUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
-            const response = await fetch(`${baseUrl}/api/pods/save`, {
+            const response = await fetch(`${BACKEND()}/api/pods/save`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify({ podId: currentUser.roomId })
+                body: JSON.stringify({ podId })
             })
 
             if (response.ok) {
                 toast.success("Pod saved successfully!")
                 if (redirectToLaunchpad === true) {
-                    socket.disconnect();
-                    setStatus(USER_STATUS.DISCONNECTED);
-                    navigate("/launchpad", { replace: true });
+                    socket.disconnect()
+                    setStatus(USER_STATUS.DISCONNECTED)
+                    // Small delay so socket teardown doesn't race with proxy
+                    setTimeout(() => navigate("/launchpad", { replace: true }), 150)
                 } else {
-                    leaveWithoutSaving();
+                    leaveWithoutSaving()
                 }
             } else {
                 const data = await response.json()

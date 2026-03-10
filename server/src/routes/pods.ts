@@ -56,10 +56,9 @@ router.get("/", authMiddleware, (req: any, res: any) => {
 
 router.post("/save", authMiddleware, (req: any, res: any) => {
     const { podId, name } = req.body
-    if (!podId) return res.status(400).json({ error: "Pod ID is required" })
+    if (!podId || podId.trim() === '') return res.status(400).json({ error: "Pod ID is required" })
 
     const pods = readDb("pods.json")
-    // Check if pod already exists for this user
     const existingPod = pods.find((p: any) => p.podId === podId && p.userId === req.user.id)
 
     if (existingPod) {
@@ -71,6 +70,8 @@ router.post("/save", authMiddleware, (req: any, res: any) => {
             userId: req.user.id,
             podId,
             name: name || `Pod ${podId.substring(0, 5)}`,
+            createdBy: req.user.id,   // creator tracking
+            sharedFrom: null,          // null = self-created
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
         })
